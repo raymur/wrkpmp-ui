@@ -9,6 +9,6 @@ if(process.env.NODE_ENV === 'production') {
       next()
   })
 }
-app.use('/', express.static('build'));
+app.use('/', express.static('dist'));
 var server = app.listen(port);
 console.log("listening on " + port)
