@@ -1,2 +1,2 @@
-web: node server.js
+web: node server.cjs
 worker: start_backend.sh
