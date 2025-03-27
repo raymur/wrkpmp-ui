@@ -2,6 +2,8 @@ import { useEffect, useState, useRef, Fragment, useDeferredValue} from 'react'
 import './App.css'
 import Axios from 'axios';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
+
 const get_greenhouse_job_url = (company, job) => `https://job-boards.greenhouse.io/${company}/jobs/${job}`
 const get_greenhouse_company_url = (company) => `https://job-boards.greenhouse.io/${company}`
 
@@ -14,7 +16,6 @@ const US = 'us'
 
 
 function App() {
-  
   const [loadMoreState, setLoadMoreState] = useState('NORMAL')
   const [jobs, setJobs] = useState([]);
   const [jobQuery, setJobQuery] = useState({
@@ -34,7 +35,7 @@ function App() {
   const delay = useRef(0)
 
   useEffect(()=>{
-    Axios.get('/api/ping').then((resp)=> console.log(resp.data) )
+    Axios.get('/api/ping', {baseURL: BACKEND_URL}).then((resp)=> console.log(resp.data) )
   }, [])
 
   useEffect(()=>{
@@ -46,7 +47,7 @@ function App() {
   const getJobs = () =>{
     const requestData = jobQuery 
     const headers = {headers: {'Content-Type': 'application/json'}}
-    Axios.post('/api/get_jobs', requestData, headers)
+    Axios.post('/api/get_jobs', requestData, {...headers, baseURL: BACKEND_URL})
       .then((resp)=> {
         setLoadMoreState(resp.data.length < 100 ? 'DISABLED': 'NORMAL')
         if (requestData.page){
