@@ -18,6 +18,7 @@ const US = 'us'
 function App() {
   const [loadMoreState, setLoadMoreState] = useState('NORMAL')
   const [jobs, setJobs] = useState([]);
+  const [totalJobs, setTotalJobs] = useState(0);
   const [jobQuery, setJobQuery] = useState({
     companies: localStorage.getItem(COMPANIES) || '', 
     titles: localStorage.getItem(TITLES) || '', 
@@ -36,6 +37,7 @@ function App() {
 
   useEffect(()=>{
     Axios.get('/api/ping', {baseURL: BACKEND_URL}).then((resp)=> console.log(resp.data) )
+    Axios.get('/api/job_count', {baseURL: BACKEND_URL}).then((resp)=> setTotalJobs(resp.data) )
   }, [])
 
   useEffect(()=>{
@@ -83,7 +85,7 @@ function App() {
   return (
     <>
       <div className='header-div'>
-      <h1 >WRK PMP</h1>
+      <h1 >WRK PMP{totalJobs && `: search ${totalJobs.toLocaleString()} greenhouse jobs`}</h1>
       <h5 >help</h5>
 
       </div>
@@ -91,7 +93,9 @@ function App() {
           <span >company filter: <input onChange={e => onFilterChange({companies: e.target.value})} value={companyFilter}></input></span>
           <span >title filter: <input onChange={e => onFilterChange({titles: e.target.value})} value={titleFilter}></input></span>
           <span >
-            <div>filter remote jobs:
+          location filter: <input onChange={e => onFilterChange({ locations: e.target.value})} value={locationFilter}></input>
+            <div>
+              filter remote jobs:
               <input 
               type='checkbox' 
               onChange={e => onFilterChange({remote: e.target.checked})} 
@@ -106,7 +110,6 @@ function App() {
               </input>
             </div>
 
-            location filter: <input onChange={e => onFilterChange({ locations: e.target.value})} value={locationFilter}></input>
           
           </span>
 
