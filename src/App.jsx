@@ -82,6 +82,12 @@ function App() {
     setJobQuery({...jobQuery, page: page.current})
   }
 
+  const getDateTag = (recent) => {
+    return <span className='recent-tag'
+
+      >{recent}</span>
+  }
+
   return (
     <>
       <div className='header-div'>
@@ -118,11 +124,14 @@ function App() {
         jobs?.map((job, i)=> 
           <Fragment key={job[0]}>
             <a key={job[3]+'_comp'} href={get_greenhouse_company_url(job[3])} target="_blank" className={ i%2 ? 'odd' : 'even'}>
-              {job[3]}
+              {job[3]} 
             </a>
-            <a key={job[3]+'_job'} href={get_greenhouse_job_url(job[3], job[0])} target="_blank" className={ i%2 ? 'odd' : 'even'}>
+            <div key={job[3]+'_job'} className={ i%2 ? 'odd' : 'even'}>
+            <a  href={get_greenhouse_job_url(job[3], job[0])} target="_blank" >
               {job[1]}
             </a>
+            {getDateTag(job[8])}
+            </div>
             <span key={job[3]+'_loc'} className={ i%2 ? 'odd' : 'even'}>
               {job[2]}
             </span>

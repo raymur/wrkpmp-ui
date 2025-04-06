@@ -37,3 +37,13 @@ body {
   justify-content: center;
   margin: 1rem;
 }
+
+.recent-tag {
+  font-size: 0.7rem;
+  background-color: gray;
+  color: black;
+  border-radius: 20px;
+  padding: 0.1rem;
+  vertical-align: center;
+  margin-left: 1rem;
+}
