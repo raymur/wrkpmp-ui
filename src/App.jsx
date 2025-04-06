@@ -83,8 +83,15 @@ function App() {
   }
 
   const getDateTag = (recent) => {
-    return <span className='recent-tag'
-
+    let colorClass = '';
+    if (recent == 'today'){
+      colorClass = 'recent-today'
+    } else if (recent == 'this week') {
+      colorClass = 'recent-week'
+    } else if (recent == 'this month') {
+      colorClass = 'recent-month'
+    }
+    return <span className={'recent-tag ' + colorClass}
       >{recent}</span>
   }
 

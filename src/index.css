@@ -40,10 +40,23 @@ body {
 
 .recent-tag {
   font-size: 0.7rem;
-  background-color: gray;
+  background-color: rgb(128, 128, 128);
   color: black;
   border-radius: 20px;
   padding: 0.1rem;
   vertical-align: center;
   margin-left: 1rem;
+}
+
+.recent-today {
+  background-color: rgb(64, 128, 70);
+
+}
+.recent-week {
+  background-color: rgb(128, 127, 64);
+
+}
+.recent-month {
+  background-color: rgb(128, 64, 64);
+
 }
