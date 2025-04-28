@@ -17,12 +17,50 @@ body {
   grid-template-columns: 1fr 2fr 1fr;
 }
 
+.job-option {
+  padding-block: 0.35rem;
+
+}
+
+.stretch-left {
+  margin-left: -10px;
+  padding-left: 10px;
+}
+.stretch-right {
+  margin-right: -10px;
+  padding-right: 10px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: end;
+  align-content: end;
+}
+
+.filter-group label {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.filter-group input {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-content: end;
+  justify-content: end;
+  padding: 0.5rem;
+}
+
 .even {
-  background-color: #242424;
+  background-color: black;
 }
 
 .odd {
-  background-color: black;
+  background-color: #242424;
 }
 
 .header-div {
@@ -30,6 +68,14 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.flex-auto {
+  flex: auto;
+}
+
+.flex-none {
+  flex: none;
 }
 
 .load-more {
@@ -46,17 +92,76 @@ body {
   padding: 0.1rem;
   vertical-align: center;
   margin-left: 1rem;
+  display: inline-block;
 }
 
 .recent-today {
-  background-color: rgb(64, 128, 70);
+  background-color: rgb(255, 255, 255);
 
 }
 .recent-week {
-  background-color: rgb(128, 127, 64);
+  background-color: rgb(212, 212, 212);
 
 }
 .recent-month {
-  background-color: rgb(128, 64, 64);
+  background-color: rgb(169, 169, 169);
 
+}
+
+.help-tip {
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  justify-content: center;
+  width: 75%;
+  background-color: black;
+}
+
+
+
+.DialogOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  	position: fixed;
+	inset: 0;
+	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent {
+	background-color: black;
+	border-radius: 6px;
+	box-shadow: 6px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90vw;
+	max-width: 750px;
+	max-height: 85vh;
+	padding: 25px;
+	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+
+@keyframes overlayShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes contentShow {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
 }

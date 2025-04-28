@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, Fragment, useDeferredValue} from 'react'
-import './App.css'
 import Axios from 'axios';
+import ShowHelp from './ShowHelp';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
@@ -98,48 +98,62 @@ function App() {
   return (
     <>
       <div className='header-div'>
-      <h1 >WRK PMP{totalJobs && `: search ${totalJobs.toLocaleString()} greenhouse jobs`}</h1>
-      <h5 >help</h5>
-
+      <h1 className='flex-auto'>WRK PMP{totalJobs && `: search ${totalJobs.toLocaleString()} greenhouse jobs`}</h1>
+      <ShowHelp></ShowHelp>
       </div>
         <div className='job-grid'>
-          <span >company filter: <input onChange={e => onFilterChange({companies: e.target.value})} value={companyFilter}></input></span>
-          <span >title filter: <input onChange={e => onFilterChange({titles: e.target.value})} value={titleFilter}></input></span>
-          <span >
-          location filter: <input onChange={e => onFilterChange({ locations: e.target.value})} value={locationFilter}></input>
+          <span className='filter stretch-left' >
+            <label for='company'>company filter: </label>
+            <input id='company' onChange={e => onFilterChange({companies: e.target.value})} defaultValue={companyFilter} placeholder='reddit | gitlab | ...'></input></span>
+          <span class='filter' >
+            <label for='title' >title filter:</label> 
+            <input id='title'   onChange={e =>  onFilterChange({titles: e.target.value})} defaultValue={titleFilter} placeholder='software engineer | ayahuasca shaman | ...'></input></span>
+          <span  className='filter'>
             <div>
-              filter remote jobs:
               <input 
-              type='checkbox' 
+              id='remote'
+              type='checkbox'
               onChange={e => onFilterChange({remote: e.target.checked})} 
               checked={remoteFilter}>
               </input>
+              <label for='remote'>
+              remote jobs only
+              </label>
             </div>
-            <div>filter US jobs:
+            <div>
               <input 
+              id ='us'
               type='checkbox' 
               onChange={e => onFilterChange({us: e.target.checked})} 
               checked={usFilter}>
               </input>
-            </div>
+              <label for='us'>
 
-          
+              US jobs only:
+              </label>
+            </div>
+            <Fragment className='filter'>
+            <label for='location'>
+            location filter: 
+            </label>
+            <input id='location' onChange={e => onFilterChange({ locations: e.target.value})} defaultValue={locationFilter} placeholder='NYC | Palo Alto | ...'></input>
+          </Fragment>
           </span>
 
     
       {
         jobs?.map((job, i)=> 
           <Fragment key={job[0]}>
-            <a key={job[3]+'_comp'} href={get_greenhouse_company_url(job[3])} target="_blank" className={ i%2 ? 'odd' : 'even'}>
-              {job[3]} 
+            <a  key={job[3]+'_comp'} href={get_greenhouse_company_url(job[3])} target="_blank" className={ 'job-option stretch-left ' + (i%2 ? 'odd' : 'even')}>
+              {job[8]  || job[3]} 
             </a>
-            <div key={job[3]+'_job'} className={ i%2 ? 'odd' : 'even'}>
+            <div key={job[3]+'_job'} className={ 'job-option ' + (i%2 ? 'odd' : 'even')}>
             <a  href={get_greenhouse_job_url(job[3], job[0])} target="_blank" >
               {job[1]}
             </a>
-            {getDateTag(job[8])}
+            {getDateTag(job[9])}
             </div>
-            <span key={job[3]+'_loc'} className={ i%2 ? 'odd' : 'even'}>
+            <span key={job[3]+'_loc'} className={ 'job-option stretch-right ' + (i%2 ? 'odd' : 'even')}>
               {job[2]}
             </span>
             </Fragment>
