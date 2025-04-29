@@ -81,8 +81,16 @@ body {
 .load-more {
   display: flex;
   justify-content: center;
+  height: 30px;
   margin: 1rem;
+  padding: 1rem
 }
+
+.right-loading {
+  position: absolute;
+  padding-left: 0.5rem;
+}
+
 
 .recent-tag {
   font-size: 0.7rem;
@@ -123,7 +131,7 @@ body {
 
 
 .DialogOverlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #24242480;
   	position: fixed;
 	inset: 0;
 	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);

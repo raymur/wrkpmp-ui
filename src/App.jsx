@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, Fragment, useDeferredValue} from 'react'
 import Axios from 'axios';
 import ShowHelp from './ShowHelp';
+import 'ldrs/ring'
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
@@ -13,10 +14,8 @@ const LOCATIONS = 'locations';
 const REMOTE = 'remote';
 const US = 'us'
 
-
-
 function App() {
-  const [loadMoreState, setLoadMoreState] = useState('NORMAL')
+  const [loadMoreState, setLoadMoreState] = useState('LOADING')
   const [jobs, setJobs] = useState([]);
   const [totalJobs, setTotalJobs] = useState(0);
   const [jobQuery, setJobQuery] = useState({
@@ -27,20 +26,26 @@ function App() {
     us: localStorage.getItem(US) == 'true' ? true : false, 
     page: 0
   });
+ 
   const companyFilter = useDeferredValue(jobQuery.company);
   const titleFilter = useDeferredValue(jobQuery.titles);
   const locationFilter = useDeferredValue(jobQuery.locations);
   const remoteFilter = useDeferredValue(jobQuery.remote);
   const usFilter = useDeferredValue(jobQuery.us);
+ 
   const page = useRef(jobQuery.page);// should this be using state instead???
-  const delay = useRef(0)
+  const delay = useRef(0)  
+  const controller = useRef(null)
 
   useEffect(()=>{
-    Axios.get('/api/ping', {baseURL: BACKEND_URL}).then((resp)=> console.log(resp.data) )
     Axios.get('/api/job_count', {baseURL: BACKEND_URL}).then((resp)=> setTotalJobs(resp.data) )
   }, [])
 
   useEffect(()=>{
+    if (controller.current){ 
+      controller.current.abort() // Cancel previous pending requests
+      controller.current = null
+    }
     const jobFilterTimeout = setTimeout(getJobs, delay.current)
     delay.current = 500
     return () => clearTimeout(jobFilterTimeout)
@@ -49,7 +54,8 @@ function App() {
   const getJobs = () =>{
     const requestData = jobQuery 
     const headers = {headers: {'Content-Type': 'application/json'}}
-    Axios.post('/api/get_jobs', requestData, {...headers, baseURL: BACKEND_URL})
+    controller.current = new AbortController()
+    Axios.post('/api/get_jobs', requestData, {...headers, baseURL: BACKEND_URL, signal: controller.current.signal})
       .then((resp)=> {
         setLoadMoreState(resp.data.length < 100 ? 'DISABLED': 'NORMAL')
         if (requestData.page){
@@ -57,7 +63,15 @@ function App() {
         }else {
           setJobs(resp.data)
         }
-      }).catch(()=>setJobs([]))
+      }).catch((error)=>{
+        if (error.name != 'CanceledError') {
+          console.error(error)
+          setJobs([]) 
+        }
+      })
+      .finally(()=>{
+        controller.current = null
+      })
     storePrefs() 
   }
 
@@ -98,49 +112,48 @@ function App() {
   return (
     <>
       <div className='header-div'>
-      <h1 className='flex-auto'>WRK PMP{totalJobs && `: search ${totalJobs.toLocaleString()} greenhouse jobs`}</h1>
+      <h1 className='flex-auto'>WRK PMP{!!totalJobs && `: search ${totalJobs.toLocaleString()} greenhouse jobs`}</h1>
       <ShowHelp></ShowHelp>
       </div>
         <div className='job-grid'>
-          <span className='filter stretch-left' >
-            <label for='company'>company filter: </label>
-            <input id='company' onChange={e => onFilterChange({companies: e.target.value})} defaultValue={companyFilter} placeholder='reddit | gitlab | ...'></input></span>
-          <span class='filter' >
-            <label for='title' >title filter:</label> 
-            <input id='title'   onChange={e =>  onFilterChange({titles: e.target.value})} defaultValue={titleFilter} placeholder='software engineer | ayahuasca shaman | ...'></input></span>
-          <span  className='filter'>
-            <div>
+            <label  className='filter stretch-left' >
+              company filter: 
+            <input  onChange={e => onFilterChange({companies: e.target.value})} defaultValue={companyFilter} placeholder='reddit | gitlab | ...'></input>
+
+            </label>
+            <label  className='filter'  >title filter:
+            <input  onChange={e =>  onFilterChange({titles: e.target.value})} defaultValue={titleFilter} placeholder='software engineer | ayahuasca shaman | ...'></input>
+              </label> 
+            <span  >
+              <label >
               <input 
-              id='remote'
               type='checkbox'
               onChange={e => onFilterChange({remote: e.target.checked})} 
               checked={remoteFilter}>
               </input>
-              <label for='remote'>
               remote jobs only
+
               </label>
-            </div>
-            <div>
+              <br />
+              <label >
+
               <input 
-              id ='us'
               type='checkbox' 
               onChange={e => onFilterChange({us: e.target.checked})} 
               checked={usFilter}>
               </input>
-              <label for='us'>
-
-              US jobs only:
+              US jobs only
               </label>
-            </div>
-            <Fragment className='filter'>
-            <label for='location'>
+            <label  className='filter'>
             location filter: 
+            <input onChange={e => onFilterChange({ locations: e.target.value})} defaultValue={locationFilter} placeholder='NYC | Palo Alto | ...'></input>
             </label>
-            <input id='location' onChange={e => onFilterChange({ locations: e.target.value})} defaultValue={locationFilter} placeholder='NYC | Palo Alto | ...'></input>
-          </Fragment>
           </span>
+          
+          
+          
+          
 
-    
       {
         jobs?.map((job, i)=> 
           <Fragment key={job[0]}>
@@ -159,21 +172,31 @@ function App() {
             </Fragment>
         )
       }
+
+    
         </div>
         <div className='load-more'>
         {loadMoreState == 'DISABLED' ? 
-  <p>refine filters to show more jobs</p>
+         <p>refine filters to show more jobs</p>
         :
-
-          <button  onClick={loadMoreJobs} disabled={ loadMoreState == 'LOADING'} >
+          <div>
+          <button className='load-button' onClick={loadMoreJobs} disabled={ loadMoreState == 'LOADING'} >
             load more
-            {loadMoreState == 'LOADING' && '🔃'}
           </button>
+
+
+          <span className='right-loading'>
+            {loadMoreState == 'LOADING' && <l-ring size='30' color='white'></l-ring>}
+          </span>
+          
+          </div>
 }
 </div>
 
     </>
   )
 }
+
+
 
 export default App

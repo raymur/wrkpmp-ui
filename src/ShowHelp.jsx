@@ -17,6 +17,8 @@ const ShowHelp = ({}) => {
 			<Dialog.Content className="DialogContent">
 				<Dialog.Title className="DialogTitle">Help & tips</Dialog.Title>
 				<Dialog.Description className="DialogDescription">
+
+				<p>I made this tool to help streamline </p>
         <p>{"In the filter bars, you can search for multiple phrases by seperating them by a pipe character: '|'. For excample:"} </p>
     <code>New York City | NYC</code>
     
