@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, Fragment, useDeferredValue} from 'react'
 import Axios from 'axios';
 import ShowHelp from './ShowHelp';
-import 'ldrs/ring'
+import { Ring } from 'ldrs/react'
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
@@ -186,7 +186,11 @@ function App() {
 
 
           <span className='right-loading'>
-            {loadMoreState == 'LOADING' && <l-ring size='30' color='white'></l-ring>}
+            {loadMoreState == 'LOADING' && 
+            
+            <Ring size='30' color='white'></Ring>
+
+            }
           </span>
           
           </div>
