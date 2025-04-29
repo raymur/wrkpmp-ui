@@ -157,9 +157,12 @@ function App() {
       {
         jobs?.map((job, i)=> 
           <Fragment key={job[0]}>
-            <a  key={job[3]+'_comp'} href={get_greenhouse_company_url(job[3])} target="_blank" className={ 'job-option stretch-left ' + (i%2 ? 'odd' : 'even')}>
+            
+            <div key={job[3]+'_comp'} className={ 'job-option stretch-left ' + (i%2 ? 'odd' : 'even')}>
+            <a  href={get_greenhouse_company_url(job[3])} target="_blank" >
               {job[8]  || job[3]} 
             </a>
+            </div>
             <div key={job[3]+'_job'} className={ 'job-option ' + (i%2 ? 'odd' : 'even')}>
             <a  href={get_greenhouse_job_url(job[3], job[0])} target="_blank" >
               {job[1]}
