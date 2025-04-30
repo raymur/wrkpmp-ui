@@ -1,11 +1,10 @@
-@import 'ldrs/react/Ring.css';
-
+@import "ldrs/react/Ring.css";
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme:  dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
   text-align: left;
@@ -17,12 +16,12 @@ body {
 
 .job-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
 }
 
 .job-option {
   padding-block: 0.35rem;
-
+  padding-inline: 0.5rem;
 }
 
 .stretch-left {
@@ -86,14 +85,13 @@ body {
   justify-content: center;
   height: 30px;
   margin: 1rem;
-  padding: 1rem
+  padding: 1rem;
 }
 
 .right-loading {
   position: absolute;
   padding-left: 0.5rem;
 }
-
 
 .recent-tag {
   font-size: 0.7rem;
@@ -108,15 +106,12 @@ body {
 
 .recent-today {
   background-color: rgb(255, 255, 255);
-
 }
 .recent-week {
   background-color: rgb(212, 212, 212);
-
 }
 .recent-month {
   background-color: rgb(169, 169, 169);
-
 }
 
 .help-tip {
@@ -125,56 +120,51 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
   width: 75%;
   background-color: black;
 }
 
-
-
 .DialogOverlay {
   background-color: #24242480;
-  	position: fixed;
-	inset: 0;
-	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .DialogContent {
-	background-color: black;
-	border-radius: 6px;
-	box-shadow: 6px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 90vw;
-	max-width: 750px;
-	max-height: 85vh;
-	padding: 25px;
-	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: black;
+  border-radius: 6px;
+  box-shadow: 6px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 750px;
+  max-height: 85vh;
+  padding: 25px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
 }
 
-
-
 @keyframes overlayShow {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes contentShow {
-	from {
-		opacity: 0;
-		transform: translate(-50%, -48%) scale(0.96);
-	}
-	to {
-		opacity: 1;
-		transform: translate(-50%, -50%) scale(1);
-	}
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
-
