@@ -1,4 +1,7 @@
 @import "ldrs/react/Ring.css";
+@import "./Tabs.css";
+
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -168,3 +171,4 @@ body {
     transform: translate(-50%, -50%) scale(1);
   }
 }
+

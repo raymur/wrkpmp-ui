@@ -1,21 +1,7 @@
-import { useState } from "react";
-import { Dialog } from "radix-ui";
-import { Cross2Icon } from "@radix-ui/react-icons";
 
 const ShowHelp = ({}) => {
-  const [container, setContainer] = useState(null);
   return (
-    <>
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
-          <button className="Button violet">Help & tips</button>
-        </Dialog.Trigger>
-        <Dialog.Portal container={container}>
-          <Dialog.Overlay className="DialogOverlay" />
-          <Dialog.Content className="DialogContent">
-            <Dialog.Title className="DialogTitle">Help & tips</Dialog.Title>
-            <Dialog.Description className="DialogDescription">
-              I made this tool to stramline my job application process. At any
+    <>        I made this tool to stramline my job application process. At any
               given time Greenhouse is hosting tens of thousands of job
               applications for a variety of small and large companies.
               Greenhouse makes it very easy to apply to their positions because
@@ -54,17 +40,7 @@ const ShowHelp = ({}) => {
               </a>
               <br />
               Thanks for using this tool. Good luck on your job search!
-            </Dialog.Description>
-
-            <Dialog.Close asChild>
-              <button className="IconButton" aria-label="Close">
-                close
-              </button>
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <div ref={setContainer} />
+           
     </>
   );
 };

@@ -1,14 +1,13 @@
-import { useEffect, useState, useRef, Fragment, useDeferredValue } from "react";
+import { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import ShowHelp from "./ShowHelp";
-import { Ring } from "ldrs/react";
+import LoadMoreButton from "./LoadMoreButton";
+import JobFilters from "./JobFilters";
+import JobList from "./JobList";
+import { Tabs  } from "radix-ui";
+
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "";
-
-const get_greenhouse_job_url = (company, job) =>
-  `https://job-boards.greenhouse.io/${company}/jobs/${job}`;
-const get_greenhouse_company_url = (company) =>
-  `https://job-boards.greenhouse.io/${company}`;
 
 const COMPANIES = "companies";
 const TITLES = "titles";
@@ -28,13 +27,6 @@ function App() {
     us: localStorage.getItem(US) == "true" ? true : false,
     page: 0,
   });
-
-  const companyFilter = useDeferredValue(jobQuery.company);
-  const titleFilter = useDeferredValue(jobQuery.titles);
-  const locationFilter = useDeferredValue(jobQuery.locations);
-  const remoteFilter = useDeferredValue(jobQuery.remote);
-  const usFilter = useDeferredValue(jobQuery.us);
-
   const page = useRef(jobQuery.page); // should this be using state instead???
   const delay = useRef(0);
   const controller = useRef(null);
@@ -105,124 +97,52 @@ function App() {
     setJobQuery({ ...jobQuery, page: page.current });
   };
 
-  const getDateTag = (recent) => {
-    let colorClass = "";
-    if (recent == "today") {
-      colorClass = "recent-today";
-    } else if (recent == "this week") {
-      colorClass = "recent-week";
-    } else if (recent == "this month") {
-      colorClass = "recent-month";
-    }
-    return <span className={"recent-tag " + colorClass}>{recent}</span>;
-  };
-
   return (
     <>
       <div className="header-div">
         <h1 className="flex-auto">
-          WRK PMP
+          WRKPMP
           {!!totalJobs &&
             `: search ${totalJobs.toLocaleString()} greenhouse jobs`}
         </h1>
-        <ShowHelp></ShowHelp>
       </div>
+      <Tabs.Root className="TabsRoot" defaultValue="tab1">
+		<Tabs.List className="TabsList" aria-label="Manage your account">
+			<Tabs.Trigger className="TabsTrigger" value="tab1">
+				search
+			</Tabs.Trigger>
+      <Tabs.Trigger className="TabsTrigger" value="tab2">
+				help & tips
+			</Tabs.Trigger>
+			<Tabs.Trigger className="TabsTrigger" value="tab3">
+				about
+			</Tabs.Trigger>
+      <Tabs.Trigger className="TabsTrigger" value="tab4">
+				feedback
+			</Tabs.Trigger>
+		</Tabs.List>
+		<Tabs.Content className="TabsContent" value="tab1">
+
       <div className="job-grid">
-        <label className="filter  stretch-left">
-          title filter:
-          <input
-            onChange={(e) => onFilterChange({ titles: e.target.value })}
-            defaultValue={titleFilter}
-            placeholder="software engineer | ayahuasca shaman | ..."
-          ></input>
-        </label>
-        <label className="filter">
-          company filter:
-          <input
-            onChange={(e) => onFilterChange({ companies: e.target.value })}
-            defaultValue={companyFilter}
-            placeholder="reddit | gitlab | ..."
-          ></input>
-        </label>
-        <span>
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => onFilterChange({ remote: e.target.checked })}
-              checked={remoteFilter}
-            ></input>
-            remote jobs only
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => onFilterChange({ us: e.target.checked })}
-              checked={usFilter}
-            ></input>
-            US jobs only
-          </label>
-          <label className="filter">
-            location filter:
-            <input
-              onChange={(e) => onFilterChange({ locations: e.target.value })}
-              defaultValue={locationFilter}
-              placeholder="NYC | Palo Alto | ..."
-            ></input>
-          </label>
-        </span>
+          <JobFilters jobQuery={jobQuery} onFilterChange={onFilterChange}></JobFilters>
+          <JobList jobs={jobs}></JobList>
+        </div>
+      <LoadMoreButton loadMoreState={loadMoreState} onLoadMoreJobs={loadMoreJobs}></LoadMoreButton>
+		</Tabs.Content>
+    <Tabs.Content className="TabsContent" value="tab2"><ShowHelp></ShowHelp></Tabs.Content>
+		<Tabs.Content className="TabsContent" value="tab3">
+    <p className="Text">
+				Make changes to your account here. Click save when you're done.
+			</p>
+		</Tabs.Content>
+    <Tabs.Content className="TabsContent" value="tab4">
+		</Tabs.Content>
+	</Tabs.Root>
 
-        {jobs?.map((job, i) => (
-          <Fragment key={job[0]}>
-            <div
-              key={job[3] + "_job"}
-              className={"job-option stretch-left " + (i % 2 ? "odd" : "even")}
-            >
-              <a href={get_greenhouse_job_url(job[3], job[0])} target="_blank">
-                {job[1]}
-              </a>
-              {getDateTag(job[9])}
-            </div>
-            <div
-              key={job[3] + "_comp"}
-              className={"job-option " + (i % 2 ? "odd" : "even")}
-            >
-              <a href={get_greenhouse_company_url(job[3])} target="_blank">
-                {job[8] || job[3]}
-              </a>
-            </div>
-            <span
-              key={job[3] + "_loc"}
-              className={"job-option stretch-right " + (i % 2 ? "odd" : "even")}
-            >
-              {job[2]}
-            </span>
-          </Fragment>
-        ))}
-      </div>
-      <div className="load-more">
-        {loadMoreState == "DISABLED" ? (
-          <p>refine filters to show more jobs</p>
-        ) : (
-          <div>
-            <button
-              className="load-button"
-              onClick={loadMoreJobs}
-              disabled={loadMoreState == "LOADING"}
-            >
-              load more
-            </button>
 
-            <span className="right-loading">
-              {loadMoreState == "LOADING" && (
-                <Ring size="30" color="white"></Ring>
-              )}
-            </span>
-          </div>
-        )}
-      </div>
     </>
   );
 }
+
 
 export default App;
