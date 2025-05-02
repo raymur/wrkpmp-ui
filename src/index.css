@@ -172,3 +172,8 @@ body {
   }
 }
 
+
+.ArticleColumn {
+	max-width: calc(54rem);
+  padding-inline: 1rem;
+}

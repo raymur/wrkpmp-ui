@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Axios from "axios";
-import ShowHelp from "./ShowHelp";
+import {ShowHelp, About, Feedback} from "./Content";
 import LoadMoreButton from "./LoadMoreButton";
 import JobFilters from "./JobFilters";
 import JobList from "./JobList";
@@ -129,13 +129,12 @@ function App() {
         </div>
       <LoadMoreButton loadMoreState={loadMoreState} onLoadMoreJobs={loadMoreJobs}></LoadMoreButton>
 		</Tabs.Content>
-    <Tabs.Content className="TabsContent" value="tab2"><ShowHelp></ShowHelp></Tabs.Content>
-		<Tabs.Content className="TabsContent" value="tab3">
-    <p className="Text">
-				Make changes to your account here. Click save when you're done.
-			</p>
+    <Tabs.Content className="TabsContent InfoContent" value="tab2"><ShowHelp></ShowHelp></Tabs.Content>
+		<Tabs.Content className="TabsContent InfoContent" value="tab3">
+          <About></About>
 		</Tabs.Content>
-    <Tabs.Content className="TabsContent" value="tab4">
+    <Tabs.Content className="TabsContent InfoContent" value="tab4">
+      <Feedback></Feedback>
 		</Tabs.Content>
 	</Tabs.Root>
 

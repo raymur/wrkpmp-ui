@@ -43,7 +43,12 @@
 	box-shadow: 0 0 0 2px rgb(140, 140, 255);
 }
 
-.TabsContent {
-	padding-top: 20px;
+.TabsContent { 
+padding-top: 20px;
 }
-
+.TabsContent.InfoContent{
+	display: flex;
+  justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
