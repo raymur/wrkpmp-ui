@@ -1,0 +1,20 @@
+Improvements.txt
+
+reword header!! make it clear what greenhouse is!! -> question mark tooltip with description and possibly a link...
+
+slary range
+
+clearly state value prop is in about
+
+today/ this week/ this month pills need to be more different colors
+
+keyword search
+
+better ui for searching terms or
+
+improve US filter...
+
+hybrid check box option`
+
+feedback
+clean & quick

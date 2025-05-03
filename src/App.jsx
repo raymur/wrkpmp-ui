@@ -4,6 +4,7 @@ import {ShowHelp, About, Feedback} from "./Content";
 import LoadMoreButton from "./LoadMoreButton";
 import JobFilters from "./JobFilters";
 import JobList from "./JobList";
+import Header from "./Header"
 import { Tabs  } from "radix-ui";
 
 
@@ -100,11 +101,7 @@ function App() {
   return (
     <>
       <div className="header-div">
-        <h1 className="flex-auto">
-          WRKPMP
-          {!!totalJobs &&
-            `: search ${totalJobs.toLocaleString()} greenhouse jobs`}
-        </h1>
+        <Header totalJobs={totalJobs}></Header>
       </div>
       <Tabs.Root className="TabsRoot" defaultValue="tab1">
 		<Tabs.List className="TabsList" aria-label="Manage your account">
@@ -142,6 +139,9 @@ function App() {
     </>
   );
 }
+
+
+
 
 
 export default App;
