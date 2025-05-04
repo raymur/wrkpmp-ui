@@ -13,7 +13,7 @@ const TooltipDemo = () => {
 				</Tooltip.Trigger>
 				<Tooltip.Portal>
 					<Tooltip.Content className="TooltipContent" sideOffset={5}>
-						Add to library
+						<a href="https://en.wikipedia.org/wiki/Greenhouse_Software">Greenhouse</a> is a recruiting software that hosts job applications for thousands of companies.
 						<Tooltip.Arrow className="TooltipArrow" />
 					</Tooltip.Content>
 				</Tooltip.Portal>
@@ -28,7 +28,7 @@ const Header = ({totalJobs}) => {
   return (<>
   {!totalJobs ?  <h1 className="flex-auto">WRKPMP</h1> :
   <h1 className="flex-auto">WRKPMP: search through {totalJobs.toLocaleString()} Greenhouse
-  {/* /<TooltipDemo></TooltipDemo> */}
+  <TooltipDemo></TooltipDemo>
    job postings</h1>}
         </>)
 }
