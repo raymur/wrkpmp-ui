@@ -10,17 +10,24 @@ Improvements.txt
 
 ✅slary range
 
-deploy -> how to deploy atomically??
+✅deploy -> how to deploy atomically??
   1. DB change
     alter table jobs add column salary text;
   2. push UI to git
   3. push API to git
 
-Bug -> UI filters arent saved in cache
+✅Bug -> UI filters arent saved in cache
 
-grey background while loading
+✅grey background while loading
 
-Group by company
+✅test -> ui filters are properly saved
+
+〰️Group by company
+
+Tweak salary tag parameters, 
+  - maybe remove 'base' keyword
+  - or require 2 tags to be active??
+
 
 
 clearly state value prop is in about
@@ -46,6 +53,7 @@ clean & quick
 
 compile job list, fix 301/302 site moved error.  multiquip is an example that doesn't work
 
+optimization parse only updated jobs
 
 - location based salary
 
@@ -55,3 +63,4 @@ salary filter
 dev issues
 ================
 do we switch to a database management tool? not sure code updates suck with 
+how to deploy atomically??
