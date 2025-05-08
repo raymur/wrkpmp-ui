@@ -78,7 +78,7 @@ function App() {
   };
 
   const storePrefs = () => {
-    [TITLES, LOCATIONS, REMOTE, US].forEach((v) =>
+    [TITLES, COMPANIES, LOCATIONS, REMOTE, US].forEach((v) =>
       localStorage.setItem(v, jobQuery[v]),
     );
   };
