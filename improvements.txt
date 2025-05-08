@@ -1,14 +1,39 @@
 Improvements.txt
 
-reword header!! make it clear what greenhouse is!! -> question mark tooltip with description and possibly a link...
+✅reword header!! make it clear what greenhouse is!! -> question mark tooltip with description and possibly a link...
 
-slary range
+
+✅Bugs in daily update script
+✅  - jobs are being posted as stale when theyre active
+✅  - script crashing causing some companies not to be updated
+✅   - check if country and remote are being updated??
+
+✅slary range
+
+deploy -> how to deploy atomically??
+  1. DB change
+    alter table jobs add column salary text;
+  2. push UI to git
+  3. push API to git
+
+Bug -> UI filters arent saved in cache
+
+grey background while loading
+
+Group by company
+
 
 clearly state value prop is in about
 
 today/ this week/ this month pills need to be more different colors
 
+star jobs <- notes in feedback form
+
 keyword search
+- create seperate table with 2 columns (word, job_id)
+- create a list of super commond words that nobody cares about (ie: company, work, team, improve, experience, impact, best, new, looking, compensation, working, ways, right, processes, people, make, know, industry, care, believe, skills, project, always, hiring, much, enough, way, want,  )
+- make this normalized if you want the keyword results to be an approximation, otherwise
+- make a word key with a list of job_ids
 
 better ui for searching terms or
 
@@ -18,3 +43,15 @@ hybrid check box option`
 
 feedback
 clean & quick
+
+compile job list, fix 301/302 site moved error.  multiquip is an example that doesn't work
+
+
+- location based salary
+
+salary filter
+
+================
+dev issues
+================
+do we switch to a database management tool? not sure code updates suck with 

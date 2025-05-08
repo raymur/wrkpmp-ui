@@ -23,9 +23,9 @@ export const Feedback = () => {
 
 return (<div className="ArticleColumn "> 
 <h1>Feedback</h1>
-  I'd love to keep improving this tool. Your feedback is super valuable for that! Let me know if you have any suggestions, find any bugs or want to see a specific feature:  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvT9cZmmh3GBui83r0KOAFND0__tHjJu0PaLeTCF0dgdkeew/viewform">
+  I'd love to keep improving this tool. Your feedback is super valuable for that! Let me know if you have any suggestions, find any bugs or want to see a specific feature:{' '}<a href="https://docs.google.com/forms/d/e/1FAIpQLSfvT9cZmmh3GBui83r0KOAFND0__tHjJu0PaLeTCF0dgdkeew/viewform">
     Google forms feedback
-  </a>
+  </a>{'.'}
   </div>)
 }
 
@@ -37,7 +37,7 @@ export const ShowHelp = ({}) => {
 
         <h3>Greenhouse account creation</h3>
         <p>
-              Make sure to create an account on Greenhouse's site:
+              Make sure to create an account on Greenhouse's site:{' '}
               <a href="https://my.greenhouse.com/faq" target="_blank">
                 greenhouse sign up
               </a>. You'll be able to autofill your resume and information on their applications, speeding up your job search process.
@@ -47,8 +47,8 @@ export const ShowHelp = ({}) => {
 
               <p>
                 {
-                  "In the filter bars, you can search for multiple phrases by seperating them by a pipe character: '|'. On many keyboards this is above the 'Enter' key. "+
-                  "For excample, if you wanted to search for either Data Science and Software Engineering jobs you could input:" 
+                  "In the filter bars, you can search for multiple phrases by separating them by a pipe character: '|'. On many keyboards this is above the 'Enter' key. "+
+                  "For example, if you wanted to search for either Data Science and Software Engineering jobs you could input:" 
                 }
                 </p>
               <code>data science | software engineering</code>

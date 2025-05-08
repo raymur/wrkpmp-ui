@@ -2,8 +2,6 @@
 @import "./Tabs.css";
 @import "./Header.css";
 
-
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -106,6 +104,10 @@ body {
   vertical-align: center;
   margin-left: 1rem;
   display: inline-block;
+}
+
+.salary-tag {
+  background-color: rgb(140,255,  140 );
 }
 
 .recent-today {

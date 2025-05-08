@@ -4,7 +4,7 @@ import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 const TooltipDemo = () => {
 	return (
-		<Tooltip.Provider>
+		<Tooltip.Provider delayDuration={200} skipDelayDuration={200}>
 			<Tooltip.Root>
 				<Tooltip.Trigger asChild>
 					<button className="IconButton">
