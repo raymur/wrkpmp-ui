@@ -39,6 +39,15 @@ body {
   padding-right: 10px;
 }
 
+.filter-container {
+  display: flex;  
+  flex-direction: column;
+	justify-content: end;
+}
+
+
+
+
 .filter-group {
   display: flex;
   align-items: end;

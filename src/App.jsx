@@ -15,6 +15,7 @@ const TITLES = "titles";
 const LOCATIONS = "locations";
 const REMOTE = "remote";
 const US = "us";
+const GROUP_BY_COMPANY = "groupByCompany";
 
 function App() {
   const [loadMoreState, setLoadMoreState] = useState("LOADING");
@@ -26,6 +27,7 @@ function App() {
     locations: localStorage.getItem(LOCATIONS) || "",
     remote: localStorage.getItem(REMOTE) == "true" ? true : false,
     us: localStorage.getItem(US) == "true" ? true : false,
+    groupByCompany: localStorage.getItem(GROUP_BY_COMPANY) == "true" ? true : false,
     page: 0,
   });
   const page = useRef(jobQuery.page); // should this be using state instead???
@@ -78,13 +80,13 @@ function App() {
   };
 
   const storePrefs = () => {
-    [TITLES, COMPANIES, LOCATIONS, REMOTE, US].forEach((v) =>
+    [TITLES, COMPANIES, LOCATIONS, REMOTE, US, GROUP_BY_COMPANY].forEach((v) =>
       localStorage.setItem(v, jobQuery[v]),
     );
   };
 
   const onFilterChange = (o) => {
-    if (o.remote != null || o.us != null) {
+    if (o.remote != null || o.us != null || o.groupByCompany != null) {
       delay.current = 0; // 0 delay for checkbox
     }
     page.current = 0;
