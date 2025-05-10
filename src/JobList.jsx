@@ -14,9 +14,8 @@ export default function JobList({jobs}) {
   const getSalaryTag = (salary) => {
     if (!salary) return null;
     salary = String(salary)
-    return  <span className={"recent-tag salary-tag "} title={salary}>{salary.substr(0,40)}</span>;
+    return  <span className={"recent-tag salary-tag "} title={salary}>{salary.substr(0,40)}{'...' ? salary.length > 40 : ''}</span>;
   }
-
 
   const getDateTag = (recent) => {
     let colorClass = "";
