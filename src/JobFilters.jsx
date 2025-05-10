@@ -7,7 +7,7 @@ import "./SwitchFilter.css";
 
 
 export default function JobFilters({jobQuery, onFilterChange})  {
-  const companyFilter = useDeferredValue(jobQuery.company);
+  const companyFilter = useDeferredValue(jobQuery.companies);
   const titleFilter = useDeferredValue(jobQuery.titles);
   const locationFilter = useDeferredValue(jobQuery.locations);
   const remoteFilter = useDeferredValue(jobQuery.remote);
